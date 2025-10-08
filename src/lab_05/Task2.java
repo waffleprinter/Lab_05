@@ -8,12 +8,16 @@ package lab_05;
  *
  * @author 6298805
  */
+import java.util.ArrayList;
 import java.util.Objects;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -97,13 +101,33 @@ public class Task2 extends Application {
         Label totalLabel = new Label("Label");
         Text total = new Text("0.00");
         
+        // Update button
+        Button updateButton = new Button("Update pricing");
+        updateButton.setOnAction(event -> {
+            double newSubtotal = 0;
+            
+            ArrayList<ComboBox<Food>> dropdowns = new ArrayList<>();
+            dropdowns.add(beverages);
+            dropdowns.add(appetizers);
+            dropdowns.add(mainCourse);
+            dropdowns.add(dessert);
+            
+            for (ComboBox<Food> dropdown : dropdowns) {
+                if (dropdown.getSelectionModel().getSelectedItem() != null) {
+                    newSubtotal += dropdown.getSelectionModel().getSelectedItem().price;
+                } 
+            }
+            
+            subtotal.setText(Double.toString(newSubtotal));
+        });
         
-        // Organzing the various courses
+        // Organziing project
         GridPane root = new GridPane();
         root.setHgap(25);
-        root.setVgap(25);
+        root.setVgap(10);
         root.setPadding(new Insets(25));
 
+        // Menu items first two rows
         root.add(beveragesLabel, 0, 0);
         root.add(appetizersLabel, 1, 0);
         root.add(mainCourseLabel, 2, 0);
@@ -114,6 +138,7 @@ public class Task2 extends Application {
         root.add(mainCourse, 2, 1);
         root.add(dessert, 3, 1);
         
+        // Pricing and tips last two rows
         root.add(subtotalLabel, 0, 2);
         root.add(tipLabel, 1, 2);
         root.add(taxLabel, 2, 2);
@@ -124,6 +149,9 @@ public class Task2 extends Application {
         root.add(tax, 2, 3);
         root.add(total, 3, 3);
         
+        root.add(updateButton, 0, 4);
+        
+        // Show program
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
