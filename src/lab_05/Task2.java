@@ -93,15 +93,15 @@ public class Task2 extends Application {
         
         // Pricing
         Label subtotalLabel = new Label("Subtotal");
-        Text subtotal = new Text("0.00");
+        Text subtotal = new Text("0.0");
         
         Label taxLabel = new Label("Tax");
-        Text tax = new Text("0.00");
+        Text tax = new Text("0.0");
         
         Label totalLabel = new Label("Label");
-        Text total = new Text("0.00");
+        Text total = new Text("0.0");
         
-        // Update button
+        // Update button and clear
         Button updateButton = new Button("Update pricing");
         updateButton.setOnAction(event -> {
             double newSubtotal = 0;
@@ -113,12 +113,24 @@ public class Task2 extends Application {
             dropdowns.add(dessert);
             
             for (ComboBox<Food> dropdown : dropdowns) {
-                if (dropdown.getSelectionModel().getSelectedItem() != null) {
-                    newSubtotal += dropdown.getSelectionModel().getSelectedItem().price;
-                } 
+                if (dropdown.getSelectionModel().getSelectedItem() == null) {
+                    continue;
+                }
+                
+                newSubtotal += dropdown.getSelectionModel().getSelectedItem().price;
             }
             
             subtotal.setText(Double.toString(newSubtotal));
+        });
+        
+        Button clearButton = new Button("Clear");
+        clearButton.setOnAction(event -> {
+            beverages.getSelectionModel().clearSelection();
+            appetizers.getSelectionModel().clearSelection();
+            mainCourse.getSelectionModel().clearSelection();
+            dessert.getSelectionModel().clearSelection();
+            
+            subtotal.setText("0.0");
         });
         
         // Organziing project
@@ -150,6 +162,7 @@ public class Task2 extends Application {
         root.add(total, 3, 3);
         
         root.add(updateButton, 0, 4);
+        root.add(clearButton, 1, 4);
         
         // Show program
         Scene scene = new Scene(root);
