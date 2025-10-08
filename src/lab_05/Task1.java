@@ -16,6 +16,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -35,7 +38,7 @@ public class Task1 extends Application {
         ListView<String> styleList = new ListView<>();
         styleList.setMaxHeight(150);
         styleList.getItems().addAll(
-                "Full decorative", "Beaded", "Pirate design", "Fringed", "Leather", "Plain");
+                "Full Decorative", "Beaded", "Pirate Design", "Fringed", "Leather", "Plain");
         
         // Selecting the quantity of bags
         Label quantityLabel = new Label("Select quantity:");
@@ -45,11 +48,32 @@ public class Task1 extends Application {
             quantityDropdown.getItems().add(i);
         }
         
-        // Organizing UI of style and quantity selection
+        // Selecting the size of bags
+        Label sizeLabel = new Label("Select size:");
+        
+        RadioButton smallButton = new RadioButton("Small");
+        RadioButton mediumButton = new RadioButton("Medium");
+        RadioButton largeButton = new RadioButton("Large");
+        
+        smallButton.setUserData("Small");
+        mediumButton.setUserData("Medium");
+        largeButton.setUserData("Large");
+        
+        ToggleGroup sizeGroup = new ToggleGroup();
+        smallButton.setToggleGroup(sizeGroup);
+        mediumButton.setToggleGroup(sizeGroup);
+        largeButton.setToggleGroup(sizeGroup);
+        
+        VBox sizeVBox = new VBox();
+        sizeVBox.setAlignment(Pos.CENTER_LEFT);
+        sizeVBox.getChildren().addAll(smallButton, mediumButton, largeButton);
+        
+        // Organizing UI of style, quantity, and size selection
         HBox selectionHBox = new HBox();
         selectionHBox.setSpacing(25);
         selectionHBox.setAlignment(Pos.CENTER);
-        selectionHBox.getChildren().addAll(styleLabel, styleList, quantityLabel, quantityDropdown);
+        selectionHBox.getChildren().addAll(
+                styleLabel, styleList, quantityLabel, quantityDropdown, sizeLabel, sizeVBox);
         
         // Order and clear button, and text to display success and error messages
         Text orderText = new Text();
@@ -58,19 +82,24 @@ public class Task1 extends Application {
         orderButton.setOnAction(event -> {
             String selectedItemName = styleList.getSelectionModel().getSelectedItem();
             Integer selectedQuantity = quantityDropdown.getSelectionModel().getSelectedItem();
+            Toggle selectedToggle = sizeGroup.getSelectedToggle();
             
-            if (selectedItemName == null || selectedQuantity == null) {
-                orderText.setText("Please pick a style and quantity.");
+            if (selectedItemName == null || selectedQuantity == null || selectedToggle == null) {
+                orderText.setText("Please pick a style, quantity, and size.");
                 return;
             }
             
-            orderText.setText("You ordered " + selectedQuantity + " " + selectedItemName + " bags");
+            orderText.setText(
+                    "You ordered " + selectedQuantity + 
+                    " " + selectedToggle.getUserData() + 
+                    " " + selectedItemName + " bags");
         });
         
         Button clearButton = new Button("Clear Selection");
         clearButton.setOnAction(event -> {
             styleList.getSelectionModel().clearSelection();
             quantityDropdown.getSelectionModel().clearSelection();
+            sizeGroup.selectToggle(null);
             orderText.setText("");
         });
         
