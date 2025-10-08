@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -32,13 +33,23 @@ public class Task1 extends Application {
         styleList.getItems().addAll(
                 "Full decorative", "Beaded", "Pirate design", "Fringed", "Leather", "Plain");
         
+        Label quantityLabel = new Label("Select quantity:");
+        
+        ComboBox<Integer> quantityDropdown = new ComboBox<>();
+        for (Integer i = 1; i < 11; i++) {
+            quantityDropdown.getItems().add(i);
+        }
+        
         HBox selectionHBox = new HBox();
         selectionHBox.setPadding(new Insets(25));
         selectionHBox.setSpacing(25);
         selectionHBox.setAlignment(Pos.CENTER);
-        selectionHBox.getChildren().addAll(styleLabel, styleList);
+        selectionHBox.getChildren().addAll(styleLabel, styleList, quantityLabel, quantityDropdown);
         
-        Scene scene = new Scene(selectionHBox);
+        BorderPane root = new BorderPane();
+        root.setCenter(selectionHBox);
+        
+        Scene scene = new Scene(root);
         
         stage.setScene(scene);
         stage.setTitle("Bag Order Form");
