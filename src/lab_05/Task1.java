@@ -29,6 +29,7 @@ public class Task1 extends Application {
 
     @Override
     public void start(Stage stage) {
+        // Selecting the style of bags
         Label styleLabel = new Label("Select bag style:");
         
         ListView<String> styleList = new ListView<>();
@@ -36,6 +37,7 @@ public class Task1 extends Application {
         styleList.getItems().addAll(
                 "Full decorative", "Beaded", "Pirate design", "Fringed", "Leather", "Plain");
         
+        // Selecting the quantity of bags
         Label quantityLabel = new Label("Select quantity:");
         
         ComboBox<Integer> quantityDropdown = new ComboBox<>();
@@ -43,14 +45,34 @@ public class Task1 extends Application {
             quantityDropdown.getItems().add(i);
         }
         
+        // Organizing UI of style and quantity selection
         HBox selectionHBox = new HBox();
         selectionHBox.setSpacing(25);
         selectionHBox.setAlignment(Pos.CENTER);
         selectionHBox.getChildren().addAll(styleLabel, styleList, quantityLabel, quantityDropdown);
         
-        Button orderButton = new Button("Place Order");
-        Button clearButton = new Button("Clear Selection");
+        // Order and clear button, and text to display success and error messages
         Text orderText = new Text();
+
+        Button orderButton = new Button("Place Order");
+        orderButton.setOnAction(event -> {
+            String selectedItemName = styleList.getSelectionModel().getSelectedItem();
+            Integer selectedQuantity = quantityDropdown.getSelectionModel().getSelectedItem();
+            
+            if (selectedItemName == null || selectedQuantity == null) {
+                orderText.setText("Please pick a style and quantity.");
+                return;
+            }
+            
+            orderText.setText("You ordered " + selectedQuantity + " " + selectedItemName + " bags");
+        });
+        
+        Button clearButton = new Button("Clear Selection");
+        clearButton.setOnAction(event -> {
+            styleList.getSelectionModel().clearSelection();
+            quantityDropdown.getSelectionModel().clearSelection();
+            orderText.setText("");
+        });
         
         HBox buttonHBox = new HBox();
         buttonHBox.setSpacing(10);
