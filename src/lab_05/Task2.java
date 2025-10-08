@@ -120,7 +120,8 @@ public class Task2 extends Application {
                 newSubtotal += dropdown.getSelectionModel().getSelectedItem().price;
             }
             
-            subtotal.setText(Double.toString(newSubtotal));
+            subtotal.setText("%.2f".formatted(newSubtotal));
+            tax.setText("%.2f".formatted(newSubtotal * 1.15));
         });
         
         Button clearButton = new Button("Clear");
@@ -131,6 +132,7 @@ public class Task2 extends Application {
             dessert.getSelectionModel().clearSelection();
             
             subtotal.setText("0.0");
+            tax.setText("0.0");
         });
         
         // Organziing project
