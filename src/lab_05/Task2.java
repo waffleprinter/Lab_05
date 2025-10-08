@@ -87,7 +87,15 @@ public class Task2 extends Application {
         Slider tip = new Slider();
         tip.setPrefWidth(30);
         
-        VBox tipVBox = new VBox(tipLabel, tip);
+        // Pricing
+        Label subtotalLabel = new Label("Subtotal");
+        Text subtotal = new Text("0.00");
+        
+        Label taxLabel = new Label("Tax");
+        Text tax = new Text("0.00");
+        
+        Label totalLabel = new Label("Label");
+        Text total = new Text("0.00");
         
         
         // Organzing the various courses
@@ -106,7 +114,15 @@ public class Task2 extends Application {
         root.add(mainCourse, 2, 1);
         root.add(dessert, 3, 1);
         
-        root.add(tipVBox, 0, 2);
+        root.add(subtotalLabel, 0, 2);
+        root.add(tipLabel, 1, 2);
+        root.add(taxLabel, 2, 2);
+        root.add(totalLabel, 3, 2);
+        
+        root.add(subtotal, 0, 3);
+        root.add(tip, 1, 3);
+        root.add(tax, 2, 3);
+        root.add(total, 3, 3);
         
         Scene scene = new Scene(root);
         
