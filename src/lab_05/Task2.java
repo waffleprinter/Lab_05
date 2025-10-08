@@ -81,16 +81,19 @@ public class Task2 extends Application {
                 new Food("Apple Crisp", 5.98)
         );
         
-//        // Tips
-//        Label tipLabel = new Label("Tip amount");
-//        Slider tip = new Slider();
-//        
-//        HBox tipHBox = new HBox(tipLabel, tip);
+        // Tips
+        Label tipLabel = new Label("Tip amount");
+        
+        Slider tip = new Slider();
+        tip.setPrefWidth(30);
+        
+        VBox tipVBox = new VBox(tipLabel, tip);
         
         
         // Organzing the various courses
         GridPane root = new GridPane();
         root.setHgap(25);
+        root.setVgap(25);
         root.setPadding(new Insets(25));
 
         root.add(beveragesLabel, 0, 0);
@@ -102,6 +105,8 @@ public class Task2 extends Application {
         root.add(appetizers, 1, 1);
         root.add(mainCourse, 2, 1);
         root.add(dessert, 3, 1);
+        
+        root.add(tipVBox, 0, 2);
         
         Scene scene = new Scene(root);
         
