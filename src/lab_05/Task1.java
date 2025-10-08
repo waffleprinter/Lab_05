@@ -6,7 +6,8 @@ package lab_05;
 
 /**
  *
- * @author 6298805
+ * @author Jacques-Conrad Calagui-Painchaud 6298805
+ * 2025/10/08
  */
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -19,7 +20,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -103,15 +103,18 @@ public class Task1 extends Application {
             orderText.setText("");
         });
         
+        // Organizing UI of order, clear, and status text
         HBox buttonHBox = new HBox();
         buttonHBox.setSpacing(10);
         buttonHBox.getChildren().addAll(orderButton, clearButton, orderText);
         
+        // Organizing UI of entire project
         VBox root = new VBox();
         root.setPadding(new Insets(25));
         root.setSpacing(25);
         root.getChildren().addAll(selectionHBox, buttonHBox);
         
+        // Run the program
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
