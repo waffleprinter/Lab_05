@@ -12,11 +12,14 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Task1 extends Application {
@@ -41,13 +44,22 @@ public class Task1 extends Application {
         }
         
         HBox selectionHBox = new HBox();
-        selectionHBox.setPadding(new Insets(25));
         selectionHBox.setSpacing(25);
         selectionHBox.setAlignment(Pos.CENTER);
         selectionHBox.getChildren().addAll(styleLabel, styleList, quantityLabel, quantityDropdown);
         
-        BorderPane root = new BorderPane();
-        root.setCenter(selectionHBox);
+        Button orderButton = new Button("Place Order");
+        Button clearButton = new Button("Clear Selection");
+        Text orderText = new Text();
+        
+        HBox buttonHBox = new HBox();
+        buttonHBox.setSpacing(10);
+        buttonHBox.getChildren().addAll(orderButton, clearButton, orderText);
+        
+        VBox root = new VBox();
+        root.setPadding(new Insets(25));
+        root.setSpacing(25);
+        root.getChildren().addAll(selectionHBox, buttonHBox);
         
         Scene scene = new Scene(root);
         
