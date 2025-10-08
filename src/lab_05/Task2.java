@@ -86,10 +86,17 @@ public class Task2 extends Application {
         );
         
         // Tips
-        Label tipLabel = new Label("Tip amount");
+        Label tipLabel = new Label("Tip amount (%)");
         
         Slider tip = new Slider();
         tip.setPrefWidth(30);
+        tip.setMin(0);
+        tip.setMax(20);
+        tip.setMajorTickUnit(5);
+        tip.setMinorTickCount(0);
+        tip.setShowTickMarks(true);
+        tip.setSnapToTicks(true);
+        tip.setShowTickLabels(true);
         
         // Pricing
         Label subtotalLabel = new Label("Subtotal");
@@ -98,7 +105,7 @@ public class Task2 extends Application {
         Label taxLabel = new Label("Tax");
         Text tax = new Text("0.0");
         
-        Label totalLabel = new Label("Label");
+        Label totalLabel = new Label("Total");
         Text total = new Text("0.0");
         
         // Update button and clear
@@ -120,8 +127,12 @@ public class Task2 extends Application {
                 newSubtotal += dropdown.getSelectionModel().getSelectedItem().price;
             }
             
+            double newTax = newSubtotal * 1.15;
+            double newTip = newSubtotal * tip.getValue() / 100;
+            
             subtotal.setText("%.2f".formatted(newSubtotal));
-            tax.setText("%.2f".formatted(newSubtotal * 1.15));
+            tax.setText("%.2f".formatted(newTax));
+            total.setText("%.2f".formatted(newSubtotal + newTip + newTax));
         });
         
         Button clearButton = new Button("Clear");
@@ -132,7 +143,9 @@ public class Task2 extends Application {
             dessert.getSelectionModel().clearSelection();
             
             subtotal.setText("0.0");
+            tip.setValue(0);
             tax.setText("0.0");
+            total.setText("0.0");
         });
         
         // Organziing project
