@@ -16,8 +16,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Task2 extends Application {
@@ -40,9 +43,6 @@ public class Task2 extends Application {
                 new Food("Juice", 2.5)
         );
         
-        VBox beveragesVBox = new VBox(beveragesLabel, beverages);
-        beveragesVBox.setAlignment(Pos.CENTER);
-        
         // Appetizers
         Label appetizersLabel = new Label("Appetizers");
         
@@ -54,9 +54,6 @@ public class Task2 extends Application {
                 new Food("Garlic Bread", 2.95),
                 new Food("Chips and Salsa", 1.5)
         );
-        
-        VBox appetizersVBox = new VBox(appetizersLabel, appetizers);
-        appetizersVBox.setAlignment(Pos.CENTER);
         
         // Main course
         Label mainCourseLabel = new Label("Main Course");
@@ -72,9 +69,6 @@ public class Task2 extends Application {
                 new Food("Fish and Chips", 12.25)
         );
         
-        VBox mainCourseVBox = new VBox(mainCourseLabel, mainCourse);
-        mainCourseVBox.setAlignment(Pos.CENTER);
-        
         // Dessert
         Label dessertLabel = new Label("Dessert");
         
@@ -87,15 +81,29 @@ public class Task2 extends Application {
                 new Food("Apple Crisp", 5.98)
         );
         
-        VBox dessertVBox = new VBox(dessertLabel, dessert);
-        dessertVBox.setAlignment(Pos.CENTER);
+//        // Tips
+//        Label tipLabel = new Label("Tip amount");
+//        Slider tip = new Slider();
+//        
+//        HBox tipHBox = new HBox(tipLabel, tip);
+        
         
         // Organzing the various courses
-        HBox menuHBox = new HBox(beveragesVBox, appetizersVBox, mainCourseVBox, dessertVBox);
-        menuHBox.setPadding(new Insets(25));
-        menuHBox.setSpacing(25);
+        GridPane root = new GridPane();
+        root.setHgap(25);
+        root.setPadding(new Insets(25));
+
+        root.add(beveragesLabel, 0, 0);
+        root.add(appetizersLabel, 1, 0);
+        root.add(mainCourseLabel, 2, 0);
+        root.add(dessertLabel, 3, 0);
+
+        root.add(beverages, 0, 1);
+        root.add(appetizers, 1, 1);
+        root.add(mainCourse, 2, 1);
+        root.add(dessert, 3, 1);
         
-        Scene scene = new Scene(menuHBox);
+        Scene scene = new Scene(root);
         
         stage.setScene(scene);
         stage.setTitle("Menu");
