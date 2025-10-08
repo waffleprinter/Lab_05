@@ -71,7 +71,7 @@ public class Task1 extends Application {
         // Organizing UI of style, quantity, and size selection
         HBox selectionHBox = new HBox();
         selectionHBox.setSpacing(25);
-        selectionHBox.setAlignment(Pos.CENTER);
+        selectionHBox.setAlignment(Pos.CENTER_LEFT);
         selectionHBox.getChildren().addAll(
                 styleLabel, styleList, quantityLabel, quantityDropdown, sizeLabel, sizeVBox);
         
@@ -105,6 +105,7 @@ public class Task1 extends Application {
         
         // Organizing UI of order, clear, and status text
         HBox buttonHBox = new HBox();
+        buttonHBox.setAlignment(Pos.CENTER_LEFT);
         buttonHBox.setSpacing(10);
         buttonHBox.getChildren().addAll(orderButton, clearButton, orderText);
         
