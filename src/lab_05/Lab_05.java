@@ -18,7 +18,7 @@ public class Lab_05 extends Application {
     
     @Override
     public void start(Stage stage) {
-        Task2 task1 = new Task2();
-        task1.start(stage);
+        Task2 task = new Task2();
+        task.start(stage);
     }
 }
